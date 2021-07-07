@@ -12,6 +12,12 @@ public class MachineGun : MonoBehaviour
 
     private bool _shooting;
     private float _canShoot;
+    private Player _player;
+
+    private void Start()
+    {
+        _player = GetComponent<Player>();
+    }
 
     private void Update()
     {
@@ -41,14 +47,20 @@ public class MachineGun : MonoBehaviour
     {
         Vector3[] positions = new Vector3[2];
         positions[0] = muzzle.transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(muzzle.position, Vector2.right, bulletDistance);
-        if(hit.collider)
+        float direction = 1;
+        if(_player.flipped)
+        {
+            direction = -1;
+        }
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(muzzle.position, transform.right * direction, bulletDistance);
+        if (hit.collider)
         {
             positions[1] = hit.point;
         }
         else
         {
-            positions[1] = muzzle.position + new Vector3(bulletDistance, 0, 0);
+            positions[1] = muzzle.position + new Vector3(direction * bulletDistance, 0, 0);
         }
         bulletTrail.SetPositions(positions);
         yield return new WaitForSeconds(.05f);

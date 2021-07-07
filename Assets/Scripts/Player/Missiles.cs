@@ -10,10 +10,11 @@ public class Missiles : MonoBehaviour
     public float speed;
     public float fireRate;
     public float _canShoot;
+    private Player _player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -28,7 +29,13 @@ public class Missiles : MonoBehaviour
         {
             _canShoot = Time.time + fireRate;
             GameObject missile = Instantiate(missilePrefab, missileSpawn.position, Quaternion.identity);
-            missile.GetComponent<MissilePrefab>().Init(damage, speed);
+            float direction = 1;
+            if(_player.flipped)
+            {
+                missile.transform.localScale = new Vector3(missile.transform.localScale.x * -1, missile.transform.localScale.y, missile.transform.localScale.z);
+                direction = -1;
+            }
+            missile.GetComponent<MissilePrefab>().Init(damage, speed, _player, direction);
         }
     }
 }
