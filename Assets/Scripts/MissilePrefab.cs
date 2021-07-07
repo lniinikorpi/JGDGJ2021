@@ -35,7 +35,7 @@ public class MissilePrefab : MonoBehaviour
         {
             collision.GetComponent<IDamageable>().TakeDamage(_damage);
         }
-        else if(!collision.CompareTag("Player"))
+        if(!collision.CompareTag("Player"))
         {
             Destroy(gameObject);
         }

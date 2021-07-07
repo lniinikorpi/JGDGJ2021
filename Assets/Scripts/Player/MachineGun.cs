@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MachineGun : MonoBehaviour
 {
-    public float fireRate = .5f;
+    public float fireRate = 2f;
     public float damage = 1;
     public float bulletDistance = 10;
     public Transform muzzle;
@@ -26,7 +26,7 @@ public class MachineGun : MonoBehaviour
             if (Time.time >= _canShoot)
             {
                 StartCoroutine(Shoot());
-                _canShoot = Time.time + fireRate;
+                _canShoot = Time.time + (1 / fireRate);
             } 
         }
     }
@@ -57,6 +57,10 @@ public class MachineGun : MonoBehaviour
         if (hit.collider)
         {
             positions[1] = hit.point;
+            if(hit.transform.GetComponent<IDamageable>() != null)
+            {
+                hit.transform.GetComponent<IDamageable>().TakeDamage(damage);
+            }
         }
         else
         {

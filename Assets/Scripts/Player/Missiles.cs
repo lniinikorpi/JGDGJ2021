@@ -6,9 +6,9 @@ public class Missiles : MonoBehaviour
 {
     public Transform missileSpawn;
     public GameObject missilePrefab;
-    public float damage;
-    public float speed;
-    public float fireRate;
+    public float damage = 5;
+    public float speed = 10;
+    public float fireRate = .25f;
     public float _canShoot;
     private Player _player;
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class Missiles : MonoBehaviour
     {
         if(Time.time >= _canShoot)
         {
-            _canShoot = Time.time + fireRate;
+            _canShoot = Time.time + (1 / fireRate);
             GameObject missile = Instantiate(missilePrefab, missileSpawn.position, Quaternion.identity);
             float direction = 1;
             if(_player.flipped)
