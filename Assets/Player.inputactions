@@ -1,0 +1,191 @@
+{
+    "name": "Player",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "2ea2529a-4bfe-43fb-ba0a-b5571486ea58",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "6a6dd9da-b65c-4b09-930c-62557beac4d1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "OpenClaw",
+                    "type": "Button",
+                    "id": "12d1ce55-64d5-439a-84a9-391b04c9a3f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CloseClaw",
+                    "type": "Button",
+                    "id": "126234d7-3793-4520-96e9-e77af7e430aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LiftClaw",
+                    "type": "Button",
+                    "id": "005347d8-bffc-4065-948b-407c54de672b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DropClaw",
+                    "type": "Button",
+                    "id": "a28ce683-b56d-4519-aa46-0f16806fcb68",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "bccebe0c-39d9-48d7-80f8-3ee592657cae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Missile",
+                    "type": "Button",
+                    "id": "bfd25231-e906-4348-b891-9a45eb686e27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "WASD",
+                    "id": "057458b5-e1fb-48df-95ab-5b3fbf166641",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "361cef02-6f6c-45bb-891c-2aecf6ba130a",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "c5557a58-440a-4cf9-8d89-fb2a43da4490",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "9e7389ba-ea15-4b4c-8e31-7b995639c289",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "21744711-5960-47f0-94a2-bc463290abff",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "99a84369-30b5-48b3-993f-ca71a2cb1860",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenClaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7d6724f-287e-4a81-ad92-2a4f60b5acba",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseClaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0148cc16-5fde-4678-a7b9-ac1ff6f0c31f",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LiftClaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88097f25-8384-4269-88bc-331e1d7a95d4",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropClaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a78901e-4103-48bf-a883-e4029c8f82de",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "374f7711-eb85-4351-bfb6-922276b8e059",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Missile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
