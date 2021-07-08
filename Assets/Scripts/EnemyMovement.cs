@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour
     public bool backAndForth = false;
     public bool waitBetweenTargets = false;
     public float waitTime = 0;
+    [Tooltip("")]
+    public float waitToPatrol = 2;
     bool moving = false;
     private int _targetIndex = 0;
     private int direction = 1;

@@ -64,7 +64,7 @@ public class MachineGun : MonoBehaviour
         }
         else
         {
-            positions[1] = muzzle.position + new Vector3(direction * bulletDistance, 0, 0);
+            positions[1] = muzzle.position + new Vector3(direction * 200, 0, 0);
         }
         bulletTrail.SetPositions(positions);
         yield return new WaitForSeconds(.05f);
