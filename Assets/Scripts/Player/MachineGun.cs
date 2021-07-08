@@ -9,6 +9,7 @@ public class MachineGun : MonoBehaviour
     public float bulletDistance = 10;
     public Transform muzzle;
     public LineRenderer bulletTrail;
+    public LayerMask layerMask;
 
     private bool _shooting;
     private float _canShoot;
@@ -53,7 +54,7 @@ public class MachineGun : MonoBehaviour
             direction = -1;
         }
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(muzzle.position, transform.right * direction, bulletDistance);
+        hit = Physics2D.Raycast(muzzle.position, transform.right * direction, bulletDistance, layerMask);
         if (hit.collider)
         {
             positions[1] = hit.point;

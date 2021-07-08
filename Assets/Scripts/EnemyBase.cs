@@ -6,6 +6,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 {
     public float maxHealth = 10;
     public float movementSpeed = 10;
+    public float damage = 3;
     public GameObject sprite;
 
     private float _currentHealth;
@@ -19,7 +20,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
             Die();
         }
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
