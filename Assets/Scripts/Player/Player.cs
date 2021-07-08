@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, IDamageable
     float _currentHealth;
     public float immortalTime = 2;
     public bool immortal = false;
+    public GameObject currentObjective;
+    private Radar _radar;
 
     public void TakeDamage(float value)
     {
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour, IDamageable
     void Start()
     {
         _currentHealth = maxHealth;
+        _radar = GetComponent<Radar>();
+        NewObjective(currentObjective);
     }
 
     // Update is called once per frame
@@ -51,5 +55,11 @@ public class Player : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(immortalTime);
         immortal = false;
 
+    }
+
+    public void NewObjective(GameObject objective)
+    {
+        currentObjective = objective;
+        _radar.SetRadarTarget(objective.transform.position);
     }
 }

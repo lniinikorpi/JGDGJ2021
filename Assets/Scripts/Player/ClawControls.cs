@@ -33,7 +33,7 @@ public class ClawControls : MonoBehaviour
         {
             OpenClaw();
         }
-        if(_closing)
+        else if(_closing)
         {
             CloseClaw();
         }
@@ -45,7 +45,7 @@ public class ClawControls : MonoBehaviour
         {
             LiftClaw();
         }
-        if (_dropping)
+        else if (_dropping)
         {
             DropClaw();
         }
@@ -55,9 +55,6 @@ public class ClawControls : MonoBehaviour
 
     public void OnOpenClaw()
     {
-        if (_closing)
-            return;
-
         if(_opening)
         {
             _opening = false;
@@ -70,9 +67,6 @@ public class ClawControls : MonoBehaviour
 
     public void OnCloseClaw()
     {
-        if (_opening)
-            return;
-
         if(_closing)
         {
             _closing = false;
@@ -85,9 +79,6 @@ public class ClawControls : MonoBehaviour
 
     public void OnLiftClaw()
     {
-        if (_dropping)
-            return;
-
         if (_lifting)
         {
             _lifting = false;
@@ -100,9 +91,6 @@ public class ClawControls : MonoBehaviour
 
     public void OnDropClaw()
     {
-        if (_lifting)
-            return;
-
         if (_dropping)
         {
             _dropping = false;
