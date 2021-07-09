@@ -36,7 +36,10 @@ public class Player : MonoBehaviour, IDamageable
     {
         _currentHealth = maxHealth;
         _radar = GetComponent<Radar>();
-        NewObjective(currentObjective);
+        if (currentObjective != null)
+        {
+            NewObjective(currentObjective); 
+        }
     }
 
     // Update is called once per frame

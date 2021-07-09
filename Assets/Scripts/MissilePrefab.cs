@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissilePrefab : MonoBehaviour
 {
-    private Rigidbody2D _rb;
+    public Rigidbody2D rb;
     private float _damage;
     private float _speed;
     private Transform _followTransform;
@@ -14,22 +14,22 @@ public class MissilePrefab : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, 4);
     }
 
-    public void Init(float damage, float speed, Player player, float direction, Transform followTransform)
+    public void Init(float damage, float speed, Player player, float direction, Transform followTransform, float xVelocity)
     {
         _damage = damage;
         _speed = speed;
         _player = player;
         _direction = direction;
         _followTransform = followTransform;
+        rb.velocity = new Vector2(xVelocity, rb.velocity.y);
     }
 
     private void FixedUpdate()
     {
-        _rb.AddForce(transform.right * _speed * _direction);
+        rb.AddForce(transform.right * _speed * _direction);
     }
 
     private void Update()
@@ -56,9 +56,9 @@ public class MissilePrefab : MonoBehaviour
     {
         if(collision.CompareTag("MissileSilo"))
         {
-            _rb.gravityScale = 0.02f;
+            rb.gravityScale = 0.02f;
             followY = false;
-            _rb.velocity = new Vector2(_rb.velocity.x, _player.gameObject.GetComponent<Rigidbody2D>().velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x, _player.gameObject.GetComponent<Rigidbody2D>().velocity.y);
         }
     }
 }

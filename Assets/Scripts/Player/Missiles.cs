@@ -35,7 +35,7 @@ public class Missiles : MonoBehaviour
                 missile.transform.localScale = new Vector3(missile.transform.localScale.x * -1, missile.transform.localScale.y, missile.transform.localScale.z);
                 direction = -1;
             }
-            missile.GetComponent<MissilePrefab>().Init(damage, speed, _player, direction, transform);
+            missile.GetComponent<MissilePrefab>().Init(damage, speed, _player, direction, transform, gameObject.GetComponent<Rigidbody2D>().velocity.x);
         }
     }
 }

@@ -14,6 +14,7 @@ public class ClawControls : MonoBehaviour
     public GameObject armOne;
     public GameObject armTwo;
     public GameObject claw;
+    public DistanceJoint2D distanceJoint;
     private LineRenderer _lineRenderer;
 
     bool _opening;
@@ -125,26 +126,30 @@ public class ClawControls : MonoBehaviour
 
     void LiftClaw()
     {
-        if (chain.transform.localPosition.y > clawMaxHeight)
+        if (distanceJoint.distance < clawMinHeight)
         {
-            chain.transform.localPosition = new Vector3(0, clawMaxHeight);
+            //chain.transform.localPosition = new Vector3(0, clawMaxHeight);
+            distanceJoint.distance = clawMinHeight;
         }
         else
         {
-            Vector2 newPos = new Vector2(0, clawLiftSpeed * Time.deltaTime);
-            chain.transform.position += (Vector3)newPos;
+            //Vector2 newPos = new Vector2(0, clawLiftSpeed * Time.deltaTime);
+            //chain.transform.position += (Vector3)newPos;
+            distanceJoint.distance -= clawLiftSpeed * Time.deltaTime;
         }
     }
     void DropClaw()
     {
-        if (chain.transform.localPosition.y < clawMinHeight)
+        if (distanceJoint.distance > clawMaxHeight)
         {
-            chain.transform.localPosition = new Vector3(0, clawMinHeight);
+            //chain.transform.localPosition = new Vector3(0, clawMinHeight);
+            distanceJoint.distance = clawMaxHeight;
         }
         else
         {
-            Vector2 newPos = new Vector2(0, clawLiftSpeed * Time.deltaTime);
-            chain.transform.position -= (Vector3)newPos;
+            //Vector2 newPos = new Vector2(0, clawLiftSpeed * Time.deltaTime);
+            //chain.transform.position -= (Vector3)newPos;
+            distanceJoint.distance += clawLiftSpeed * Time.deltaTime;
         }
     }
 }
