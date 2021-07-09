@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3259683088225054300}
   - component: {fileID: 3259683088225054302}
   - component: {fileID: 3259683088225054303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259683088265533958}
   - component: {fileID: 3259683088265533961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Missiles
   m_TagString: MissileSilo
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 3259683088602817585}
   - component: {fileID: 3259683088602817742}
   - component: {fileID: 3259683088602817740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259683088697027174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 3259683088891371849}
   - component: {fileID: 3259683088891371851}
   - component: {fileID: 3259683088891371848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 3259683088984869915}
   - component: {fileID: 3259683088984869917}
   - component: {fileID: 3259683088984869914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 3259683088991616303}
   - component: {fileID: 3259683088991616273}
   - component: {fileID: 3259683088991616302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 3259683089137520103}
   - component: {fileID: 3259683089137520101}
   - component: {fileID: 3259683089137520100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Claw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,7 +809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259683089149813747}
   - component: {fileID: 3259683089149813746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,7 @@ GameObject:
   - component: {fileID: 3259683089197315503}
   - component: {fileID: 3259683089197315473}
   - component: {fileID: 3259683089197315502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,7 +1082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259683089328549780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1146,7 +1146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259683089755985724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 3259683089929244269}
   - component: {fileID: 3259683089929244271}
   - component: {fileID: 3259683089929244268}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1299,6 +1299,7 @@ GameObject:
   - component: {fileID: 3259683089931799632}
   - component: {fileID: 3259683089931799637}
   - component: {fileID: 3259683089931799639}
+  - component: {fileID: 2722067712679599434}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1338,10 +1339,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipped: 0
-  maxHealth: 20
+  maxHealth: 15
   immortalTime: 2
   immortal: 0
   currentObjective: {fileID: 0}
+  hasTreasure: 0
+  machineGun: {fileID: 3259683089931799634}
+  missiles: {fileID: 3259683089931799638}
+  playerMovement: {fileID: 3259683089931799635}
 --- !u!114 &3259683089931799635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,6 +1605,53 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!60 &2722067712679599434
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259683089931799662}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.5874858, y: 0.4677728}
+      - {x: -1.074234, y: 0.37672716}
+      - {x: -1.1660602, y: 0.312377}
+      - {x: -1.2993891, y: 0.2263512}
+      - {x: -1.386189, y: 0.41700903}
+      - {x: -1.4366341, y: 0.43017313}
+      - {x: -1.4518702, y: -0.06176064}
+      - {x: -1.3681344, y: -0.0888593}
+      - {x: -1.308249, y: 0.11568232}
+      - {x: -1.1265517, y: 0.017763197}
+      - {x: -0.7932445, y: -0.11072701}
+      - {x: -0.38211018, y: -0.14170195}
+      - {x: 1.1146821, y: -0.14841044}
+      - {x: 1.3058248, y: -0.11674717}
+      - {x: 1.4422615, y: 0.03827972}
+      - {x: 1.4277698, y: 0.2819006}
+      - {x: 1.3274965, y: 0.45506108}
+      - {x: 0.78362584, y: 0.47456783}
+      - {x: 0.7835677, y: 0.7662511}
+      - {x: 0.48614314, y: 0.766619}
+      - {x: 0.41666585, y: 0.47498453}
 --- !u!1 &3259683090003808302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259683090003808273}
   - component: {fileID: 3259683090003808272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259683090046462316}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,7 +1776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259683090093582679}
   - component: {fileID: 3259683090093582678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1807,7 +1859,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259683090101945745}
   - component: {fileID: 3259683090101945744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

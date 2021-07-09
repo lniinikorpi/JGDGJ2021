@@ -156,7 +156,7 @@ public class EnemyMovement : MonoBehaviour
                 waiting = true;
                 chasing = false;
             }
-            _player.GetComponent<IDamageable>().TakeDamage(enemyShark.damage);
+            _player.GetComponentInParent<IDamageable>().TakeDamage(enemyShark.damage);
         }
     }
 
@@ -185,6 +185,11 @@ public class EnemyMovement : MonoBehaviour
         yield return new WaitForSeconds(waitTimeAfterAttack);
         waitStarted = false;
         waiting = false;
+    }
+
+    private void OnDisable()
+    {
+        moving = false;
     }
 
 }

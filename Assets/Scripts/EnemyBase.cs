@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public float damage = 3;
     public GameObject sprite;
     public GameObject powerUpToDrop;
+    public EnemySpawn spawn;
 
     private float _currentHealth;
 
@@ -22,8 +23,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
         }
     }
     
-    // Start is called before the first frame update
-    void Start()
+    public void InitEnemy()
     {
         _currentHealth = maxHealth;
     }
@@ -39,7 +39,8 @@ public class EnemyBase : MonoBehaviour, IDamageable
         if(powerUpToDrop != null)
         {
             Instantiate(powerUpToDrop, transform.position, Quaternion.identity);
+            spawn.enemyAlive = false;
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

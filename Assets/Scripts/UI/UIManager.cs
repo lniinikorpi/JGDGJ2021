@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject mainPanel;
     public GameObject prizePanel;
     public TMP_Text calculationText;
-    public TMP_Text prizeTotalMoney;
+    GameManager gm;
 
     private void Awake()
     {
@@ -34,9 +34,11 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         UpdateMoneyText();
+        UpdateHealthText(GameManager.instance.player.maxHealth);
         missionPanel.SetActive(false);
         mainPanel.SetActive(true);
         prizePanel.SetActive(false);
+        gm = GameManager.instance;
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class UIManager : MonoBehaviour
         mb.Init(objective);
     }
 
-    public void UpdateHealthText(int value)
+    public void UpdateHealthText(float value)
     {
         healthText.text = value.ToString() + "/" + GameManager.instance.player.maxHealth.ToString();
     }
@@ -65,5 +67,17 @@ public class UIManager : MonoBehaviour
     public void UpdateRadarScroll(int value)
     {
         radarScroll.value = value;
+    }
+
+    public void UpdateCalculationsText(int totalMoney)
+    {
+        if(gm.player.hasTreasure)
+        {
+            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "Treasure: " + gm.treasureMoney + "$" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "Total: " + totalMoney + "$";
+        }
+        else
+        {
+            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "Total: " + totalMoney + "$";
+        }
     }
 }

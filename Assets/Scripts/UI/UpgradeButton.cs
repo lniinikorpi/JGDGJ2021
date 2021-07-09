@@ -36,8 +36,11 @@ public class UpgradeButton : MonoBehaviour
                 GetComponent<Button>().interactable = false;
                 priceText.text = "MAXED OUT";
             }
-            price = gm.baseUpgradeCost * (upgradeLevel + 1);
-            UpdatePriceText();
+            else
+            {
+                price = gm.baseUpgradeCost * (upgradeLevel + 1);
+                UpdatePriceText(); 
+            }
             UIManager.instance.UpdateMoneyText();
         }
     }

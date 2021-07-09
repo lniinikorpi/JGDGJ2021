@@ -11,12 +11,14 @@ public class Objective
 {
     public GameObject target;
     public Difficulty difficulty;
+    public float multiplier;
 }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public List<Transform> treasureSpawns;
+    public List<Transform> enemySpawns;
     public Objective selectedObjective;
     public Player player;
     public GameObject baseSpawn;
@@ -27,8 +29,7 @@ public class GameManager : MonoBehaviour
     public float easyMultiplier = 1f;
     public float mediumMultiplier = 1.5f;
     public float hardMultiplier = 2.0f;
-    [HideInInspector]
-    public int money;
+    public int money = 0;
     public int baseUpgradeCost = 200;
 
     public int maxUpgradeLevel = 10;
@@ -38,6 +39,9 @@ public class GameManager : MonoBehaviour
     public float missileDamageUpgrade = 2;
     public float speedUpgrade = 100;
     public float healthUpgrade = 10;
+
+    public float minEnemyRespawnTime = 10;
+    public float maxEnemyRespawnTime = 20;
 
     private void Awake()
     {
@@ -54,6 +58,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InitMissions();
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -62,9 +67,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void StartGame()
+    public void StartMission()
     {
-        player.currentObjective = selectedObjective.target;
+        player.transform.position = baseSpawn.transform.position;
+        Time.timeScale = 1;
     }
 
     void InitMissions()
@@ -85,7 +91,22 @@ public class GameManager : MonoBehaviour
             {
                 diff = Difficulty.Hard;
             }
-            Objective objective = new Objective { target = trans.gameObject, difficulty = diff };
+            float multiplier = 1;
+            switch (diff)
+            {
+                case Difficulty.Easy:
+                    multiplier = easyMultiplier;
+                    break;
+                case Difficulty.Medium:
+                    multiplier = mediumMultiplier;
+                    break;
+                case Difficulty.Hard:
+                    multiplier = hardMultiplier;
+                    break;
+                default:
+                    break;
+            }
+            Objective objective = new Objective { target = trans.gameObject, difficulty = diff, multiplier = multiplier };
             missions.Add(objective);
         }
         GetNewMissions();
@@ -103,6 +124,8 @@ public class GameManager : MonoBehaviour
     {
         GameObject treasure = Instantiate(treasurePrefab, selectedObjective.target.transform.position, Quaternion.identity);
         player.NewObjective(treasure);
+        SpawnEnemies();
+        StartMission();
     }
 
     public void EndMission()
@@ -127,6 +150,49 @@ public class GameManager : MonoBehaviour
                 break;
         }
         money += (int)prizeMoney;
+        UIManager.instance.UpdateCalculationsText((int)prizeMoney);
+        UIManager.instance.prizePanel.SetActive(true);
+        UIManager.instance.UpdateMoneyText();
+        Destroy(player.currentObjective);
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        Time.timeScale = 0;
+    }
+
+    void SpawnEnemies()
+    {
+        for (int i = 0; i < enemySpawns.Count; i++)
+        {
+            enemySpawns[i].gameObject.SetActive(false);
+        }
+
+        int enemyCount = 0;
+        float multiplier = 0;
+        switch (selectedObjective.difficulty)
+        {
+            case Difficulty.Easy:
+                multiplier = .4f;
+                break;
+            case Difficulty.Medium:
+                multiplier = .6f;
+                break;
+            case Difficulty.Hard:
+                multiplier = .8f;
+                break;
+            default:
+                break;
+        }
+        enemyCount = (int)((float)enemySpawns.Count * multiplier);
+
+        List<Transform> spawnClone = new List<Transform>(enemySpawns);
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            int index = Random.Range(0, spawnClone.Count - 1);
+            GameObject activeSpawn = spawnClone[index].gameObject;
+            activeSpawn.SetActive(true);
+            activeSpawn.GetComponent<EnemySpawn>().SpawnEnemy();
+            spawnClone.RemoveAt(index);
+        }
     }
 
     private void OnDrawGizmos()
@@ -137,10 +203,21 @@ public class GameManager : MonoBehaviour
             {
                 if (treasureSpawns[i] != null)
                 {
-                    Gizmos.color = Color.red;
+                    Gizmos.color = Color.green;
                     Gizmos.DrawWireSphere(treasureSpawns[i].position, .6f); 
                 }
             } 
+        }
+        if (enemySpawns.Count > 0)
+        {
+            for (int i = 0; i < enemySpawns.Count; i++)
+            {
+                if (enemySpawns[i] != null)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawWireSphere(enemySpawns[i].position, .6f);
+                }
+            }
         }
     }
 }

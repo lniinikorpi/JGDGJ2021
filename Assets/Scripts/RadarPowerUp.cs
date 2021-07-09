@@ -11,7 +11,7 @@ public class RadarPowerUp : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<Radar>().AddRadarTime(Random.Range(minRadarTime, maxRadarTime));
+            collision.GetComponentInParent<Radar>().AddRadarTime(Random.Range(minRadarTime, maxRadarTime));
             Destroy(gameObject);
         }
     }

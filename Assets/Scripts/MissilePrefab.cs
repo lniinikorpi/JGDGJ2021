@@ -42,9 +42,12 @@ public class MissilePrefab : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<IDamageable>() != null)
+        if(collision.GetComponentInParent<IDamageable>() != null)
         {
-            collision.GetComponent<IDamageable>().TakeDamage(_damage);
+            if (!collision.CompareTag("Player") && !collision.CompareTag("MissileSilo"))
+            {
+                collision.gameObject.GetComponentInParent<IDamageable>().TakeDamage(_damage); 
+            }
         }
         if (!collision.CompareTag("Player") && !collision.CompareTag("MissileSilo"))
         {

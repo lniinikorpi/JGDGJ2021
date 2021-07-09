@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IDamageable
     public GameObject currentObjective;
     private Radar _radar;
     [HideInInspector]
-    public bool hasTreasure;
+    public bool hasTreasure = false;
     public MachineGun machineGun;
     public Missiles missiles;
     public PlayerMovement playerMovement;
@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IDamageable
             return;
 
         _currentHealth -= value;
+        UIManager.instance.UpdateHealthText(_currentHealth);
         if(_currentHealth <= 0)
         {
             _currentHealth = 0;
@@ -95,9 +96,18 @@ public class Player : MonoBehaviour, IDamageable
             case UpgradeType.Health:
                 maxHealth += gm.healthUpgrade;
                 _currentHealth = maxHealth;
+                UIManager.instance.UpdateHealthText(_currentHealth);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Hangar"))
+        {
+            GameManager.instance.EndMission();
         }
     }
 }
