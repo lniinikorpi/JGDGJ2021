@@ -82,6 +82,7 @@ MonoBehaviour:
   movementSpeed: 1
   damage: 3
   sprite: {fileID: 6924609104552738654}
+  powerUpToDrop: {fileID: 2684131028663675725, guid: 2a2089d391ecda34f90bd043c8f46d1f, type: 3}
 --- !u!114 &6924609103636429738
 MonoBehaviour:
   m_ObjectHideFlags: 0

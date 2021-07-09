@@ -12,6 +12,11 @@ public class Player : MonoBehaviour, IDamageable
     public bool immortal = false;
     public GameObject currentObjective;
     private Radar _radar;
+    [HideInInspector]
+    public bool hasTreasure;
+    public MachineGun machineGun;
+    public Missiles missiles;
+    public PlayerMovement playerMovement;
 
     public void TakeDamage(float value)
     {
@@ -36,6 +41,9 @@ public class Player : MonoBehaviour, IDamageable
     {
         _currentHealth = maxHealth;
         _radar = GetComponent<Radar>();
+        machineGun = GetComponent<MachineGun>();
+        missiles = GetComponent<Missiles>();
+        playerMovement = GetComponent<PlayerMovement>();
         if (currentObjective != null)
         {
             NewObjective(currentObjective); 
@@ -63,6 +71,33 @@ public class Player : MonoBehaviour, IDamageable
     public void NewObjective(GameObject objective)
     {
         currentObjective = objective;
-        _radar.SetRadarTarget(objective.transform.position);
+        _radar.SetRadarTarget(objective);
+    }
+
+    public void UpgradeShip(UpgradeType type)
+    {
+        GameManager gm = GameManager.instance;
+        switch (type)
+        {
+            case UpgradeType.GunDamage:
+                machineGun.damage += gm.gunDamageUpgrade;
+                break;
+            case UpgradeType.GunFireRate:
+                machineGun.fireRate += gm.gunFireRateUpgrade;
+                break;
+            case UpgradeType.MissileDamage:
+                missiles.damage += gm.missileDamageUpgrade;
+                break;
+            case UpgradeType.Speed:
+                playerMovement.accelerationForce += gm.speedUpgrade;
+                playerMovement.maxSpeed += gm.speedUpgrade / 100;
+                break;
+            case UpgradeType.Health:
+                maxHealth += gm.healthUpgrade;
+                _currentHealth = maxHealth;
+                break;
+            default:
+                break;
+        }
     }
 }

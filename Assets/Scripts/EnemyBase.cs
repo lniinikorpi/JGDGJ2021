@@ -8,6 +8,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public float movementSpeed = 10;
     public float damage = 3;
     public GameObject sprite;
+    public GameObject powerUpToDrop;
 
     private float _currentHealth;
 
@@ -35,6 +36,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     void Die()
     {
+        if(powerUpToDrop != null)
+        {
+            Instantiate(powerUpToDrop, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 }

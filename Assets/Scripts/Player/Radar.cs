@@ -9,13 +9,18 @@ public class Radar : MonoBehaviour
     public GameObject radar;
     public GameObject radarCursor;
     private Player _player;
-    private Vector2 _target;
+    private GameObject _target;
     bool radarActive = false;
+    public bool baseRadar;
     // Start is called before the first frame update
     void Start()
     {
         _player = GetComponent<Player>();
         _currentRadarTime = maxRadarTime;
+        if(baseRadar)
+        {
+            SetRadarTarget(GameManager.instance.baseSpawn);
+        }
     }
 
     // Update is called once per frame
@@ -43,14 +48,14 @@ public class Radar : MonoBehaviour
         }
     }
 
-    public void SetRadarTarget(Vector2 position)
+    public void SetRadarTarget(GameObject position)
     {
         _target = position;
     }
 
     void RotateRadar()
     {
-        Vector2 direction =  _target - (Vector2)transform.position;
+        Vector2 direction =  (Vector2)_target.transform.position - (Vector2)transform.position;
         direction = direction.normalized;
 
         float angle = Vector2.SignedAngle(Vector2.up, direction);
