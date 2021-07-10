@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
                 audioSource.Stop();
             }
         }
+        else
+        {
+            CheckHeight();
+        }
     }
 
     private void FixedUpdate()
@@ -84,6 +88,16 @@ public class PlayerMovement : MonoBehaviour
                 _player.flipped = false;
                 ship.transform.localScale = new Vector3(1, 1, 1);
             }
+        }
+    }
+
+    void CheckHeight()
+    {
+        if(transform.position.y < 0 && transform.position.y > -100)
+        {
+            float percentage = 1 - (Mathf.Abs(transform.position.y) / 100);
+            float vignetteAmount = PostProcessManager.instance.maxVignette - ((PostProcessManager.instance.maxVignette - PostProcessManager.instance.minVignette) * percentage);
+            PostProcessManager.instance.AdjustVignette(vignetteAmount);
         }
     }
 }

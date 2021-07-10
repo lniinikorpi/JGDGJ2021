@@ -64,9 +64,9 @@ public class UIManager : MonoBehaviour
         totalMoneyText.text = GameManager.instance.money.ToString();
     }
 
-    public void UpdateRadarScroll(int value)
+    public void UpdateRadarScroll(float value)
     {
-        radarScroll.value = value;
+        radarScroll.size = value;
     }
 
     public void UpdateCalculationsText(int totalMoney)

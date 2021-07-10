@@ -28,8 +28,7 @@ public class Missiles : MonoBehaviour
     {
         if(Time.time >= _canShoot)
         {
-            audioSource.Play();
-            _canShoot = Time.time + (1 / fireRate);
+            audioSource.Play();            _canShoot = Time.time + (1 / fireRate);
             GameObject missile = Instantiate(missilePrefab, missileSpawn.position, Quaternion.identity);
             float direction = 1;
             if(_player.flipped)

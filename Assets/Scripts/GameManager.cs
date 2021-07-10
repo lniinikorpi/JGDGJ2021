@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     public float minEnemyRespawnTime = 10;
     public float maxEnemyRespawnTime = 20;
 
+    public float wallDamage = 1;
+
     private void Awake()
     {
         if(instance == null)

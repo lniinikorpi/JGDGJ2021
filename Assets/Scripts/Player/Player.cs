@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     public GameObject chain;
     public GameObject enemyHitParticle;
     public GameObject dieParticles;
+    public GameObject wallHitParticle;
     public AudioSource audioSource;
 
     public void TakeDamage(float value)
@@ -137,6 +138,18 @@ public class Player : MonoBehaviour, IDamageable
         if(collision.CompareTag("Hangar"))
         {
             GameManager.instance.EndMission();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            TakeDamage(GameManager.instance.wallDamage);
+            if (!immortal)
+            {
+                Instantiate(wallHitParticle, collision.contacts[0].point, Quaternion.identity); 
+            }
         }
     }
 

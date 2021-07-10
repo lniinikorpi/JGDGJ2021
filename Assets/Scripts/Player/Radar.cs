@@ -47,6 +47,8 @@ public class Radar : MonoBehaviour
             radarActive = false;
             radar.SetActive(false);
         }
+        float percentage = _currentRadarTime / maxRadarTime;
+        UIManager.instance.UpdateRadarScroll(percentage);
     }
 
     public void SetRadarTarget(GameObject position)
@@ -81,5 +83,7 @@ public class Radar : MonoBehaviour
         {
             _currentRadarTime = maxRadarTime;
         }
+        float percentage = _currentRadarTime / maxRadarTime;
+        UIManager.instance.UpdateRadarScroll(percentage);
     }
 }
