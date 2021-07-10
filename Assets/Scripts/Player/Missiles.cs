@@ -11,6 +11,7 @@ public class Missiles : MonoBehaviour
     public float fireRate = .25f;
     public float _canShoot;
     private Player _player;
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class Missiles : MonoBehaviour
     {
         if(Time.time >= _canShoot)
         {
+            audioSource.Play();
             _canShoot = Time.time + (1 / fireRate);
             GameObject missile = Instantiate(missilePrefab, missileSpawn.position, Quaternion.identity);
             float direction = 1;

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private Player _player;
     public ParticleSystem particleSystem;
+    public AudioSource audioSource;
     
     void Start()
     {
@@ -22,7 +23,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!_player.alive)
+        {
+            if(audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -33,12 +40,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 var em = particleSystem.emission;
                 em.rateOverTime = 15;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play(); 
+                }
                 Move();
             }
             else
             {
                 var em = particleSystem.emission;
                 em.rateOverTime = 0;
+                if (audioSource.isPlaying)
+                {
+                    audioSource.Stop(); 
+                }
             }
         }
     }

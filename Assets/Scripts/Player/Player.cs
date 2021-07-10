@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     public GameObject chain;
     public GameObject enemyHitParticle;
     public GameObject dieParticles;
+    public AudioSource audioSource;
 
     public void TakeDamage(float value)
     {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour, IDamageable
         }
         else
         {
+            audioSource.Play();
             immortal = true;
             StartCoroutine(Immortal());
         }
@@ -95,6 +97,11 @@ public class Player : MonoBehaviour, IDamageable
     {
         currentObjective = objective;
         _radar.SetRadarTarget(objective);
+        Radar[] radars = GetComponents<Radar>();
+        foreach (Radar radar in radars)
+        {
+            radar.AddRadarTime(radar.maxRadarTime);
+        }
     }
 
     public void UpgradeShip(UpgradeType type)

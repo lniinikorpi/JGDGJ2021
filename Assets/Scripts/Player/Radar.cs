@@ -12,6 +12,7 @@ public class Radar : MonoBehaviour
     private GameObject _target;
     bool radarActive = false;
     public bool baseRadar;
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,8 +70,12 @@ public class Radar : MonoBehaviour
         radar.SetActive(radarActive);
     }
 
-    public void AddRadarTime(float value)
+    public void AddRadarTime(float value, bool fromPowerUp = false)
     {
+        if(audioSource != null && fromPowerUp)
+        {
+            audioSource.Play();
+        }
         _currentRadarTime += value;
         if(_currentRadarTime > maxRadarTime)
         {

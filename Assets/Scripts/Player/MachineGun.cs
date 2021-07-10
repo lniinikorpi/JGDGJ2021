@@ -14,6 +14,7 @@ public class MachineGun : MonoBehaviour
     private bool _shooting;
     private float _canShoot;
     private Player _player;
+    public AudioSource audioSource;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class MachineGun : MonoBehaviour
 
     IEnumerator Shoot()
     {
+        audioSource.Play();
         Vector3[] positions = new Vector3[2];
         positions[0] = muzzle.transform.position;
         float direction = 1;

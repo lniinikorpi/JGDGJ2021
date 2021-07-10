@@ -16,6 +16,7 @@ public class UpgradeButton : MonoBehaviour
     public int upgradeLevel = 0;
     GameManager gm;
     public UpgradeType upgradeType;
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class UpgradeButton : MonoBehaviour
             gm.money -= price;
             upgradeLevel++;
             gm.player.UpgradeShip(upgradeType);
+            audioSource.Play();
             if (upgradeLevel >= gm.maxUpgradeLevel)
             {
                 GetComponent<Button>().interactable = false;
