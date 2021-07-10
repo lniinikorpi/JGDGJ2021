@@ -30,28 +30,34 @@ public class ClawControls : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_opening)
+        if (GameManager.instance.player.alive)
         {
-            OpenClaw();
-        }
-        else if(_closing)
-        {
-            CloseClaw();
+            if (_opening)
+            {
+                OpenClaw();
+            }
+            else if (_closing)
+            {
+                CloseClaw();
+            } 
         }
     }
 
     private void Update()
     {
-        if (_lifting)
+        if (GameManager.instance.player.alive)
         {
-            LiftClaw();
+            if (_lifting)
+            {
+                LiftClaw();
+            }
+            else if (_dropping)
+            {
+                DropClaw();
+            }
+            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(1, claw.transform.position); 
         }
-        else if (_dropping)
-        {
-            DropClaw();
-        }
-        _lineRenderer.SetPosition(0, transform.position);
-        _lineRenderer.SetPosition(1, claw.transform.position);
     }
 
     public void OnOpenClaw()

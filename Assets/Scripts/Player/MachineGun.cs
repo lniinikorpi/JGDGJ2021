@@ -61,6 +61,7 @@ public class MachineGun : MonoBehaviour
             if(hit.transform.GetComponent<IDamageable>() != null)
             {
                 hit.transform.GetComponent<IDamageable>().TakeDamage(damage);
+                Instantiate(GameManager.instance.player.enemyHitParticle, hit.point, Quaternion.identity);
             }
         }
         else

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _movement;
     private Rigidbody2D _rb;
     private Player _player;
+    public ParticleSystem particleSystem;
     
     void Start()
     {
@@ -26,8 +27,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_movement != Vector2.zero)
-            Move();
+        if (_player.alive)
+        {
+            if (_movement != Vector2.zero)
+            {
+                var em = particleSystem.emission;
+                em.rateOverTime = 15;
+                Move();
+            }
+            else
+            {
+                var em = particleSystem.emission;
+                em.rateOverTime = 0;
+            }
+        }
     }
 
     public void OnMove(InputValue value)

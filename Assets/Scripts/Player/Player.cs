@@ -17,6 +17,11 @@ public class Player : MonoBehaviour, IDamageable
     public MachineGun machineGun;
     public Missiles missiles;
     public PlayerMovement playerMovement;
+    public bool alive;
+    public GameObject sprite;
+    public GameObject chain;
+    public GameObject enemyHitParticle;
+    public GameObject dieParticles;
 
     public void TakeDamage(float value)
     {
@@ -24,7 +29,6 @@ public class Player : MonoBehaviour, IDamageable
             return;
 
         _currentHealth -= value;
-        UIManager.instance.UpdateHealthText(_currentHealth);
         if(_currentHealth <= 0)
         {
             _currentHealth = 0;
@@ -35,6 +39,7 @@ public class Player : MonoBehaviour, IDamageable
             immortal = true;
             StartCoroutine(Immortal());
         }
+        UIManager.instance.UpdateHealthText(_currentHealth);
     }
 
     // Start is called before the first frame update
@@ -45,6 +50,7 @@ public class Player : MonoBehaviour, IDamageable
         machineGun = GetComponent<MachineGun>();
         missiles = GetComponent<Missiles>();
         playerMovement = GetComponent<PlayerMovement>();
+        alive = true;
         if (currentObjective != null)
         {
             NewObjective(currentObjective); 
@@ -59,7 +65,23 @@ public class Player : MonoBehaviour, IDamageable
 
     void Die()
     {
-        print("die");
+        alive = false;
+        sprite.SetActive(false);
+        chain.SetActive(false);
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<LineRenderer>().enabled = false;
+        Instantiate(dieParticles, transform.position, Quaternion.identity);
+        StartCoroutine(WaitAfterDie());
+    }
+
+    public void Respawn()
+    {
+        alive = true;
+        sprite.SetActive(true);
+        chain.SetActive(true);
+        GetComponent<LineRenderer>().enabled = true;
+        _currentHealth = maxHealth;
+        UIManager.instance.UpdateHealthText(maxHealth);
     }
 
     IEnumerator Immortal()
@@ -109,5 +131,11 @@ public class Player : MonoBehaviour, IDamageable
         {
             GameManager.instance.EndMission();
         }
+    }
+
+    IEnumerator WaitAfterDie()
+    {
+        yield return new WaitForSeconds(1f);
+        GameManager.instance.EndMission();
     }
 }

@@ -11,6 +11,7 @@ public class MissilePrefab : MonoBehaviour
     private Player _player;
     float _direction = 1;
     bool followY = true;
+    public GameObject particles;
 
     private void Start()
     {
@@ -46,11 +47,13 @@ public class MissilePrefab : MonoBehaviour
         {
             if (!collision.CompareTag("Player") && !collision.CompareTag("MissileSilo"))
             {
-                collision.gameObject.GetComponentInParent<IDamageable>().TakeDamage(_damage); 
+                collision.gameObject.GetComponentInParent<IDamageable>().TakeDamage(_damage);
+                Instantiate(GameManager.instance.player.enemyHitParticle, collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position), Quaternion.identity);
             }
         }
         if (!collision.CompareTag("Player") && !collision.CompareTag("MissileSilo"))
         {
+            Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

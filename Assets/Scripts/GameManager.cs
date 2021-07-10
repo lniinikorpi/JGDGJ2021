@@ -69,6 +69,10 @@ public class GameManager : MonoBehaviour
 
     public void StartMission()
     {
+        if(!player.alive)
+        {
+            player.Respawn();
+        }
         player.transform.position = baseSpawn.transform.position;
         Time.timeScale = 1;
     }
@@ -130,29 +134,36 @@ public class GameManager : MonoBehaviour
 
     public void EndMission()
     {
-        float prizeMoney = baseMissionMoney;
-        if (player.hasTreasure)
+        if(player.alive)
         {
-            prizeMoney += treasureMoney;
+            float prizeMoney = baseMissionMoney;
+            if (player.hasTreasure)
+            {
+                prizeMoney += treasureMoney;
+            }
+            switch (selectedObjective.difficulty)
+            {
+                case Difficulty.Easy:
+                    prizeMoney *= easyMultiplier;
+                    break;
+                case Difficulty.Medium:
+                    prizeMoney *= mediumMultiplier;
+                    break;
+                case Difficulty.Hard:
+                    prizeMoney *= hardMultiplier;
+                    break;
+                default:
+                    break;
+            }
+            money += (int)prizeMoney;
+            UIManager.instance.UpdateCalculationsText((int)prizeMoney);
+            UIManager.instance.prizePanel.SetActive(true);
+            UIManager.instance.UpdateMoneyText();
         }
-        switch (selectedObjective.difficulty)
+        else
         {
-            case Difficulty.Easy:
-                prizeMoney *= easyMultiplier;
-                break;
-            case Difficulty.Medium:
-                prizeMoney *= mediumMultiplier;
-                break;
-            case Difficulty.Hard:
-                prizeMoney *= hardMultiplier;
-                break;
-            default:
-                break;
+            UIManager.instance.mainPanel.SetActive(true);
         }
-        money += (int)prizeMoney;
-        UIManager.instance.UpdateCalculationsText((int)prizeMoney);
-        UIManager.instance.prizePanel.SetActive(true);
-        UIManager.instance.UpdateMoneyText();
         Destroy(player.currentObjective);
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Time.timeScale = 0;

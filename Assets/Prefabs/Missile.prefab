@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2841334089978397376}
+  particles: {fileID: 7042318991804775684, guid: b3dfb4e08b21dc546aac5e4634995e60, type: 3}
 --- !u!1 &5875998392697231039
 GameObject:
   m_ObjectHideFlags: 0

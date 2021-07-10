@@ -14,7 +14,6 @@ public class EnemyMovement : MonoBehaviour
     public float chaceSpeedMultiplier = 1.5f;
     public float waitTimeAfterAttack = 1;
     public float visionRange = 4;
-    private bool chasing = false;
     bool moving = false;
     private bool waiting = false;
     private bool waitStarted;
@@ -46,14 +45,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!waiting)
         {
-            if (!moving && !chasing)
+            if (!moving && !_enemyBase.chasing)
             {
                 StartCoroutine(MovePosition());
             }
 
             if (CheckIfChaseDistance())
             {
-                chasing = true;
+                _enemyBase.chasing = true;
                 _outOfRange = false;
                 _patrolWaitCounter = 0;
             }
@@ -62,7 +61,7 @@ public class EnemyMovement : MonoBehaviour
                 _outOfRange = true;
             }
 
-            if (chasing)
+            if (_enemyBase.chasing)
             {
                 Chase(_player.transform.position);
                 if(_outOfRange)
@@ -70,7 +69,8 @@ public class EnemyMovement : MonoBehaviour
                     _patrolWaitCounter += Time.deltaTime;
                     if(_patrolWaitCounter >= waitToPatrol)
                     {
-                        chasing = false;
+                        _enemyBase.chasing = false;
+                        _patrolWaitCounter = 0;
                     }
                 }
             } 
@@ -104,14 +104,14 @@ public class EnemyMovement : MonoBehaviour
         {
             _enemyBase.sprite.transform.localScale = new Vector3(spriteStartXScale, _enemyBase.sprite.transform.localScale.y, _enemyBase.sprite.transform.localScale.z);
         }
-        while (transform.position != (Vector3)_patrolPositions[_targetIndex] && !chasing)
+        while (transform.position != (Vector3)_patrolPositions[_targetIndex] && !_enemyBase.chasing)
         {
             float step = movementSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, _patrolPositions[_targetIndex], step);
             yield return new WaitForSeconds(.001f);
         }
 
-        if (!chasing)
+        if (!_enemyBase.chasing)
         {
             if (waitBetweenTargets)
                 yield return new WaitForSeconds(waitTime); 
@@ -141,9 +141,17 @@ public class EnemyMovement : MonoBehaviour
 
     void Chase(Vector3 target)
     {
-        if (chasing)
+        if (_enemyBase.chasing)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime * chaceSpeedMultiplier); 
+            transform.position = Vector2.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime * chaceSpeedMultiplier);
+            if(transform.position.x > target.x)
+            {
+                _enemyBase.sprite.transform.localScale = new Vector3(-spriteStartXScale, _enemyBase.sprite.transform.localScale.y, _enemyBase.sprite.transform.localScale.z);
+            }
+            else if (transform.position.x < target.x)
+            {
+                _enemyBase.sprite.transform.localScale = new Vector3(spriteStartXScale, _enemyBase.sprite.transform.localScale.y, _enemyBase.sprite.transform.localScale.z);
+            }
         }
     }
 
@@ -151,10 +159,10 @@ public class EnemyMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            if(chasing)
+            if(_enemyBase.chasing)
             {
                 waiting = true;
-                chasing = false;
+                _enemyBase.chasing = false;
             }
             _player.GetComponentInParent<IDamageable>().TakeDamage(enemyShark.damage);
         }

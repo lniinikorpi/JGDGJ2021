@@ -10,11 +10,14 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public GameObject sprite;
     public GameObject powerUpToDrop;
     public EnemySpawn spawn;
+    public bool chasing;
+    public GameObject dieParticle;
 
     private float _currentHealth;
 
     public void TakeDamage(float value)
     {
+        chasing = true;
         _currentHealth -= value;
         if(_currentHealth <= 0)
         {
@@ -39,8 +42,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
         if(powerUpToDrop != null)
         {
             Instantiate(powerUpToDrop, transform.position, Quaternion.identity);
+            Instantiate(dieParticle, transform.position, Quaternion.identity);
             spawn.enemyAlive = false;
         }
         gameObject.SetActive(false);
+        chasing = false;
     }
 }
