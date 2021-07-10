@@ -68,6 +68,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Mute",
+                    "type": "Button",
+                    "id": "dd70b4bf-a48e-4d14-9d24-f7cdb8ea7fa2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "c00166c9-be22-4eb4-bb7b-b3d6e9b6c361",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -200,6 +216,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Radar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8ee4da1-3af0-4df5-8cd0-0e552944343c",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d557e852-0e0a-4063-bb3d-779653d9164f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

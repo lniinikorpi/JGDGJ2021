@@ -45,6 +45,17 @@ public class GameManager : MonoBehaviour
 
     public float wallDamage = 1;
 
+    [HideInInspector]
+    private int treasureCount = 0;
+    public int treasureLimit = 5;
+
+    public BoxCollider2D hangarCollider;
+    public float missionMinTime = 30;
+    private float _currentMissionTime = 0;
+
+    [HideInInspector]
+    public bool isMuted;
+
     private void Awake()
     {
         if(instance == null)
@@ -66,17 +77,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(_currentMissionTime < missionMinTime)
+        {
+            if (Time.timeScale > 0)
+            {
+                _currentMissionTime += Time.deltaTime; 
+            }
+        }
+        else
+        {
+            hangarCollider.enabled = true;
+        }
     }
 
     public void StartMission()
     {
-        if(!player.alive)
-        {
-            player.Respawn();
-        }
+        player.Respawn();
         player.transform.position = baseSpawn.transform.position;
         Time.timeScale = 1;
+        _currentMissionTime = 0;
+        hangarCollider.enabled = false;
     }
 
     void InitMissions()
@@ -142,6 +162,11 @@ public class GameManager : MonoBehaviour
             if (player.hasTreasure)
             {
                 prizeMoney += treasureMoney;
+                treasureCount++;
+                if(treasureCount == treasureLimit)
+                {
+                    EndGame();
+                }
             }
             switch (selectedObjective.difficulty)
             {
@@ -232,5 +257,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    void EndGame()
+    {
+        UIManager.instance.gameEndPanel.SetActive(true);
     }
 }

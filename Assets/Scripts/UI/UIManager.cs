@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject prizePanel;
     public TMP_Text calculationText;
     GameManager gm;
+    public GameObject gameEndPanel;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
         mainPanel.SetActive(true);
         prizePanel.SetActive(false);
         gm = GameManager.instance;
+        gameEndPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -73,11 +75,33 @@ public class UIManager : MonoBehaviour
     {
         if(gm.player.hasTreasure)
         {
-            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "Treasure: " + gm.treasureMoney + "$" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "Total: " + totalMoney + "$";
+            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "\n" + "Treasure: " + gm.treasureMoney + "$" + "\n" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "\n" + "Total: " + totalMoney + "$";
         }
         else
         {
-            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "Total: " + totalMoney + "$";
+            calculationText.text = "Mission: " + gm.baseMissionMoney + "$" + "\n" + "\n" + "Multiplier: " + gm.selectedObjective.multiplier + "\n" + "\n" + "Total: " + totalMoney + "$";
+        }
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void Mute()
+    {
+        GameManager.instance.isMuted = !GameManager.instance.isMuted;
+        if(GameManager.instance.isMuted)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioListener.volume = 1;
         }
     }
 }

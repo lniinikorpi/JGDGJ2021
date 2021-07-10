@@ -145,9 +145,9 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(GameManager.instance.wallDamage);
             if (!immortal)
             {
+                TakeDamage(GameManager.instance.wallDamage);
                 Instantiate(wallHitParticle, collision.contacts[0].point, Quaternion.identity); 
             }
         }
@@ -157,5 +157,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(1f);
         GameManager.instance.EndMission();
+    }
+
+    public void OnMute()
+    {
+        UIManager.instance.Mute();
+    }
+
+    public void OnQuit()
+    {
+        UIManager.instance.QuitGame();
     }
 }
